@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour {
     Vector3 currentRot;
 
     public MovementReticle myMR;
+    public ThrottleReticle myTR;
 
     public float maxVelocity;
 
@@ -15,20 +16,12 @@ public class Movement : MonoBehaviour {
     public float desiredVelocity;
     float setVelocity;
 
-    void Update()
-    {
-        if (Input.GetAxis("Mouse ScrollWheel") != 0)
-        {
-            Debug.Log(Input.GetAxis("Mouse ScrollWheel"));
-            desiredVelocity += Input.GetAxis("Mouse ScrollWheel") * maxVelocity;
-        }
-
-        desiredVelocity = Mathf.Clamp(desiredVelocity, 0, maxVelocity);
-    }
-	
     void FixedUpdate()
     {
         ReticleInfo myRI = myMR.GetReticleInfo();
+        float throttleScale = myTR.GetThrottle();
+
+        desiredVelocity = maxVelocity * throttleScale;
 
         setVelocity = Mathf.Lerp(setVelocity, desiredVelocity, .01f);
 

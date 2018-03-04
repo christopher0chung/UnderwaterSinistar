@@ -10,7 +10,7 @@ public class ThrottleReticle : MonoBehaviour {
 	void Update () {
 		if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            scale += Input.GetAxis("Mouse ScrollWheel");
+            scale += Input.GetAxis("Mouse ScrollWheel") * 2;
         }
         scale = Mathf.Clamp01(scale);
 
@@ -18,4 +18,9 @@ public class ThrottleReticle : MonoBehaviour {
 
         transform.localScale = new Vector3(transform.localScale.x, displayScale * 500, transform.localScale.z);
 	}
+
+    public float GetThrottle()
+    {
+        return scale;
+    }
 }
